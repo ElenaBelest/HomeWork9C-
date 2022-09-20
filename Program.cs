@@ -19,7 +19,7 @@ void Start()
             case 0: return; break;
             case 64: Numbers(); break;
             case 66: SumNumbersRec(); break;
-            // case 88: ProductOfArrays(); break;
+            case 68: AckermanFunction(); break;
             default: Console.WriteLine("error"); break;
         }
     }
@@ -39,13 +39,13 @@ int SetNumber(string numberName)
 
 void Numbers()
 {
-Console.Write("Enter first number: ");
-int number = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Enter first number: ");
+    int number = Convert.ToInt32(Console.ReadLine());
 
-Console.Write("Enter second number: ");
-int number2 = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Enter second number: ");
+    int number2 = Convert.ToInt32(Console.ReadLine());
 
-Console.WriteLine($"Numbers from {number} to {number2}: " + NumbersRec(number,number2));
+    Console.WriteLine($"Numbers from {number} to {number2}: " + NumbersRec(number, number2));
 }
 
 string NumbersRec(int number, int number2)
@@ -62,23 +62,50 @@ string NumbersRec(int number, int number2)
 void SumNumbersRec()
 {
     Console.Write("Enter first number: ");
-int number = Convert.ToInt32(Console.ReadLine());
+    int number = Convert.ToInt32(Console.ReadLine());
 
-Console.Write("Enter second number: ");
-int number2 = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Enter second number: ");
+    int number2 = Convert.ToInt32(Console.ReadLine());
 
-Console.WriteLine($"The sum of the numbers from {number} to {number2} : " + SumRec(number, number2));
+    Console.WriteLine($"The sum of the numbers from {number} to {number2} : " + SumRec(number, number2));
 }
 
 int SumRec(int number, int number2)
 {
-    if (number == 0) return (number2 * (number2 + 1)) / 2;            
-    else if (number2 == 0) return (number * (number + 1)) / 2;       
-    else if (number == number2) return number;                       
-    else if (number < number2) return number2 + SumRec(number, number2 - 1); 
+    if (number == 0) return (number2 * (number2 + 1)) / 2;
+    else if (number2 == 0) return (number * (number + 1)) / 2;
+    else if (number == number2) return number;
+    else if (number < number2) return number2 + SumRec(number, number2 - 1);
     else return number2 + SumRec(number, number2 + 1);
 }
 
 // Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии.
 // Даны два неотрицательных числа m и n.
 // m = 2, n = 3 -> A(m,n) = 29
+
+void AckermanFunction()
+{
+    Console.Write("Enter first positiv number: ");
+    int number = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Enter second positiv number: ");
+    int number2 = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine($"A (m,n) = " + AckermanFunctionRec(number, number2));
+}
+
+int AckermanFunctionRec(int number, int number2)
+{
+    if (number == 0)
+    {
+        return number2 + 1;
+    }
+    else if (number != 0 && number2 == 0)
+    {
+        return AckermanFunctionRec(number - 1, 1);
+    }
+    else // if (number > 0 && number2 > 0)
+    {
+        return (AckermanFunctionRec(number - 1, AckermanFunctionRec(number, number2 - 1)));
+    }
+}
